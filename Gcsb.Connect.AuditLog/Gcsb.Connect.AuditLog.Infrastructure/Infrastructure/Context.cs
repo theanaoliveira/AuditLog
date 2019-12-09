@@ -70,16 +70,15 @@ namespace Gcsb.Connect.AuditLog.Infrastructure.Infrastructure
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        auditEntries.Add(auditLog.MakeHistory(entry.CurrentValues.ToObject(), EntityState.Added, "Insert"));
+                        auditEntries.Add(auditLog.MakeHistory(entry.CurrentValues.ToObject(), "Insert"));
                         break;
                     case EntityState.Deleted:
-                        entry.OriginalValues.SetValues(entry.GetDatabaseValuesAsync().Result);
-                        auditEntries.Add(auditLog.MakeHistory(entry.OriginalValues.ToObject(), EntityState.Deleted, "Delete"));
+                        auditEntries.Add(auditLog.MakeHistory(entry.CurrentValues.ToObject(), "Delete"));
                         break;
                     case EntityState.Modified:
                         entry.OriginalValues.SetValues(entry.GetDatabaseValuesAsync().Result);
-                        auditEntries.Add(auditLog.MakeHistory(entry.OriginalValues.ToObject(), EntityState.Deleted, "Update - Old Value"));
-                        auditEntries.Add(auditLog.MakeHistory(entry.CurrentValues.ToObject(), EntityState.Added, "Update - New value"));
+                        auditEntries.Add(auditLog.MakeHistory(entry.OriginalValues.ToObject(), "Update - Old Value"));
+                        auditEntries.Add(auditLog.MakeHistory(entry.CurrentValues.ToObject(), "Update - New value"));
                         break;
                 }
             }

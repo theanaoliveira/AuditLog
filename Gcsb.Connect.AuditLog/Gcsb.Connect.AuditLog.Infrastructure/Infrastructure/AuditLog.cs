@@ -7,7 +7,7 @@ namespace Gcsb.Connect.AuditLog.Infrastructure.Infrastructure
 {
     public class AuditLog<THistory> where THistory : class, new()
     {
-        public THistory MakeHistory(object entry, EntityState state, string action)
+        public THistory MakeHistory(object entry, string action)
         {
             var log = new THistory();
             var propertiesHistory = log.GetType().GetProperties();
@@ -26,18 +26,6 @@ namespace Gcsb.Connect.AuditLog.Infrastructure.Infrastructure
 
             return log;
         }
-
-        //private object GetValue(PropertyEntry propertyEntry, EntityState state)
-        //{
-        //    var value = state switch
-        //    {
-        //        EntityState.Added => propertyEntry.CurrentValue,
-        //        EntityState.Deleted => propertyEntry.OriginalValue,
-        //        _ => propertyEntry.CurrentValue,
-        //    };
-
-        //    return value;
-        //}
 
         void UpdateProp(PropertyInfo property, THistory log, object value)
         {
