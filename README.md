@@ -10,6 +10,7 @@ Example:
 
 I have a Person domain, and a PersonHistory:
 
+```
 using System;
 
 namespace Domain.Person
@@ -30,9 +31,11 @@ namespace Domain.Person
         }
     }
 }
+```
 
 In my history class, I'll inherit from "HistoryBase"
 
+```
 using Gcsb.Connect.AuditLog.Infrastructure.Domain;
 
 namespace Infrastructure.PostgresDataAccess.Entities.Person
@@ -46,11 +49,47 @@ namespace Infrastructure.PostgresDataAccess.Entities.Person
     }
 }
 
+```
 
+After create the domains, I'll create a new instance for "Context" class, like that:
 
+```
+using var context = new Context<Person, PersonHistory>(dbProperties);
+```
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+The "dbProperties" are a configuration of the connection, tables and schema, like that:
+
+```
+namespace Gcsb.Connect.AuditLog.Infrastructure.Domain
+{
+    public class DbProperties
+    {
+        public DbProperties(string connectionString, string tableName, string tableHistory, string schema);
+
+        public string ConnectionString { get; set; }
+        public string TableName { get; }
+        public string TableHistory { get; }
+        public string Schema { get; set; }
+    }
+}
+
+private readonly DbProperties dbProperties = new DbProperties(Environment.GetEnvironmentVariable("CONN"), "Person", "PersonHistory", "GenericDB");
+```
+
+And for the save the data, just call "SaveChangesAsync" method on context above
+
+Example:
+
+```
+var dbProperties = new DbProperties(Environment.GetEnvironmentVariable("CONN"), "Person", "PersonHistory", "GenericDB");
+
+using var context = new Context<Person, PersonHistory>(dbProperties);
+context.GenericTable.Add(personObject);
+await context.SaveChangesAsync();
+```
+
+Enjoy!
+
 
 # Contribute
 TODO: Explain how other users and developers can contribute to make your code better. 
