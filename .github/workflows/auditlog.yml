@@ -4,26 +4,17 @@ on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 2.2.108
-    - name: Build with dotnet
-      run: dotnet build AuditLog\\Gcsb.Connect.AuditLog\\Gcsb.Connect.AuditLog.Infrastructure\\Gcsb.Connect.AuditLog.Infrastructure.csproj
-      
+    stage: build
+    script:
+      - dotnet build Gcsb.Connect.AuditLog.sln\Gcsb.Connect.AuditLog.sln
+    only:
+      refs:
+        - master
+          
   test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 2.2.108
-    - name: Test with dotnet
-      run: dotnet test AuditLog\\Gcsb.Connect.AuditLog\\Gcsb.Connect.AuditLog.Test\\Gcsb.Connect.AuditLog.Test.csproj
+    stage: test
+    script:
+      - dotnet test Gcsb.Connect.AuditLog.sln\Gcsb.Connect.AuditLog.sln
+    only:
+      refs:
+        - master
