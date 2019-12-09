@@ -10,6 +10,41 @@ Example:
 
 I have a Person domain, and a PersonHistory:
 
+using System;
+
+namespace Domain.Person
+{
+    public class Person
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Cpf { get; set; }
+        public int Age { get; set; }
+
+        public Person(Guid id, string name, string cpf, int age)
+        {
+            Id = id;
+            Name = name;
+            Cpf = cpf;
+            Age = age;
+        }
+    }
+}
+
+In my history class, I'll inherit from "HistoryBase"
+
+using Gcsb.Connect.AuditLog.Infrastructure.Domain;
+
+namespace Infrastructure.PostgresDataAccess.Entities.Person
+{
+    public class PersonHistory : HistoryBase
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Cpf { get; set; }
+        public int Age { get; set; }
+    }
+}
 
 
 
