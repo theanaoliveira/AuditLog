@@ -1,6 +1,15 @@
 # Introduction 
 Create a logs register on your database with a model and registers of any type
 
+# Nuget
+
+To install the package run the following command on the Package Manager Console:
+
+```
+PM> Install-Package Gcsb.Connect.AuditLog.Infrastructure
+```
+
+
 # Getting Started
 Sample:
 
