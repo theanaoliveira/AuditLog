@@ -3,7 +3,7 @@ Create a logs register on your database with a model and registers of any type
 
 # Nuget
 
-To install the package run the following command on the Package Manager Console:
+To install the package, run the following command on the Package Manager Console:
 
 ```
 PM> Install-Package Gcsb.Connect.AuditLog.Infrastructure
@@ -13,11 +13,11 @@ PM> Install-Package Gcsb.Connect.AuditLog.Infrastructure
 # Getting Started
 Sample:
 
-Create a domain of type what you need, and create a mirror of that, to save a history on your database.
+Create a domain type according to your requirements, and create a mirror of that, to save a history on your database.
 
 Example:
 
-I have a Person domain, and a PersonHistory:
+I have a "Person" and a "PersonHistory" domain:
 
 ```c#
 using System;
@@ -85,7 +85,7 @@ namespace Gcsb.Connect.AuditLog.Infrastructure.Domain
 private readonly DbProperties dbProperties = new DbProperties(Environment.GetEnvironmentVariable("CONN"), "Person", "PersonHistory", "GenericDB");
 ```
 
-And for the save the data, just call "SaveChangesAsync" method on context above
+And to save the data, just call "SaveChangesAsync" method on context above
 
 Example:
 
